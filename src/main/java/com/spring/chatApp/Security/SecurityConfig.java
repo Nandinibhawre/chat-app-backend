@@ -84,7 +84,8 @@ public class SecurityConfig {
         configuration.setAllowedOrigins(List.of(
 
                 "http://localhost:5173",
-                " http://localhost:5174/"// React-local
+                " http://localhost:5174/",
+                "https://chat-app-frontend-fawn-three.vercel.app"// React-local
 
         ));
 
