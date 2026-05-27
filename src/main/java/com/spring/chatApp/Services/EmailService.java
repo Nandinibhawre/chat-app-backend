@@ -35,49 +35,153 @@ public class EmailService {
             headers.set("api-key", apiKey);
 
             String htmlContent = """
-                    
-                    <div style="
-                        font-family: Arial, sans-serif;
-                        max-width: 600px;
-                        margin: auto;
-                        padding: 20px;
-                        border-radius: 10px;
-                        border: 1px solid #e0e0e0;
-                    ">
+        
+<!DOCTYPE html>
+<html>
 
-                        <h1 style="color:#4CAF50;">
-                            Welcome to ChatApp 🚀
-                        </h1>
+<head>
+    <meta charset="UTF-8">
+</head>
 
-                        <p>Hello <b>%s</b>,</p>
+<body style="
+    margin:0;
+    padding:0;
+    background:#f4f7fb;
+    font-family:Arial,sans-serif;
+">
 
-                        <p>
-                            Your account has been created successfully.
-                        </p>
+<div style="
+    max-width:650px;
+    margin:40px auto;
+    background:white;
+    border-radius:20px;
+    overflow:hidden;
+    box-shadow:0 5px 20px rgba(0,0,0,0.1);
+">
 
-                        <p>
-                            We are excited to have you in our chat community 🎉
-                        </p>
+    <!-- HEADER -->
+    <div style="
+        background:linear-gradient(135deg,#6C63FF,#5A54E8);
+        padding:40px;
+        text-align:center;
+        color:white;
+    ">
 
-                        <div style="
-                            background:#f5f5f5;
-                            padding:15px;
-                            border-radius:8px;
-                            margin-top:20px;
-                        ">
-                            Start chatting with your friends now 💬
-                        </div>
+        <h1 style="
+            margin:0;
+            font-size:36px;
+        ">
+            Welcome to ChatApp 🚀
+        </h1>
 
-                        <br>
+        <p style="
+            margin-top:10px;
+            font-size:18px;
+            opacity:0.9;
+        ">
+            Your new chat journey starts here
+        </p>
 
-                        <p>
-                            Thank you,<br>
-                            <b>ChatApp Team</b>
-                        </p>
+    </div>
 
-                    </div>
+    <!-- BODY -->
+    <div style="
+        padding:40px;
+        color:#333;
+    ">
 
-                    """.formatted(username);
+        <h2 style="
+            margin-top:0;
+            font-size:28px;
+        ">
+            Hey %s 👋
+        </h2>
+
+        <p style="
+            font-size:16px;
+            line-height:1.8;
+            color:#555;
+        ">
+            We are super excited to have you in our community 🎉
+        </p>
+
+        <div style="
+            margin:30px 0;
+            background:#f7f8ff;
+            border-left:5px solid #6C63FF;
+            padding:20px;
+            border-radius:10px;
+        ">
+
+            <h3 style="
+                margin-top:0;
+                color:#6C63FF;
+            ">
+                Your account is ready ✅
+            </h3>
+
+            <p style="
+                margin-bottom:0;
+                color:#555;
+            ">
+                Start chatting with your friends, share moments,
+                and enjoy real-time conversations 💬
+            </p>
+
+        </div>
+
+        <!-- BUTTON -->
+        <div style="
+            text-align:center;
+            margin-top:40px;
+        ">
+
+            <a href="#"
+               style="
+                    background:#6C63FF;
+                    color:white;
+                    text-decoration:none;
+                    padding:15px 35px;
+                    border-radius:50px;
+                    display:inline-block;
+                    font-size:16px;
+                    font-weight:bold;
+               ">
+                Start Chatting
+            </a>
+
+        </div>
+
+    </div>
+
+    <!-- FOOTER -->
+    <div style="
+        background:#f4f4f4;
+        padding:25px;
+        text-align:center;
+        color:#888;
+        font-size:14px;
+    ">
+
+        <p style="margin:0;">
+            Thank you for joining ChatApp 💜
+        </p>
+
+        <p style="
+            margin-top:10px;
+            font-size:13px;
+        ">
+            © 2026 ChatApp. All rights reserved.
+        </p>
+
+    </div>
+
+</div>
+
+</body>
+</html>
+
+""".formatted(username);
 
             Map<String, Object> sender = new HashMap<>();
             sender.put("name", senderName);
