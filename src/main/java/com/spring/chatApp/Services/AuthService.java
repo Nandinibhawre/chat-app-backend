@@ -19,7 +19,7 @@ import java.util.List;
 public class AuthService {
 
     private final UserRepository userRepository;
-
+    private final EmailService emailService;
     private final PasswordEncoder passwordEncoder;
 
     private final JwtUtil jwtUtil;
@@ -54,9 +54,13 @@ public class AuthService {
                 )
         );
 
-        // SAVE USER
-        userRepository.save(user);
+        User savedUser = userRepository.save(user);
 
+// Send welcome email
+        emailService.sendWelcomeEmail(
+                savedUser.getEmail(),
+                savedUser.getUsername()
+        );
         return "User Registered Successfully";
     }
 
