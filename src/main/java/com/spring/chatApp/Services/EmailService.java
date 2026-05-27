@@ -223,4 +223,100 @@ public class EmailService {
             e.printStackTrace();
         }
     }
+
+    public void sendForgotPasswordEmail(
+            String toEmail,
+            String username,
+            String resetLink
+    ) {
+        String htmlContent = """
+        
+<!DOCTYPE html>
+<html>
+
+<body style="
+    background:#f4f7fb;
+    padding:40px;
+    font-family:Arial;
+">
+
+<div style="
+    max-width:600px;
+    margin:auto;
+    background:white;
+    border-radius:20px;
+    overflow:hidden;
+    box-shadow:0 5px 20px rgba(0,0,0,0.1);
+">
+
+    <div style="
+        background:#ff4d6d;
+        color:white;
+        padding:35px;
+        text-align:center;
+    ">
+
+        <h1>
+            Reset Your Password 🔐
+        </h1>
+
+    </div>
+
+    <div style="padding:40px;">
+
+        <h2>
+            Hello %s 👋
+        </h2>
+
+        <p style="
+            color:#555;
+            line-height:1.8;
+        ">
+            We received a request to reset your password.
+        </p>
+
+        <p style="
+            color:#555;
+            line-height:1.8;
+        ">
+            Click the button below to create a new password.
+        </p>
+
+        <div style="
+            text-align:center;
+            margin-top:40px;
+        ">
+
+            <a href="%s"
+               style="
+                    background:#ff4d6d;
+                    color:white;
+                    padding:15px 30px;
+                    text-decoration:none;
+                    border-radius:50px;
+                    display:inline-block;
+                    font-weight:bold;
+               ">
+                Reset Password
+            </a>
+
+        </div>
+
+        <p style="
+            margin-top:40px;
+            color:#888;
+            font-size:14px;
+        ">
+            This link will expire in 15 minutes.
+        </p>
+
+    </div>
+
+</div>
+
+</body>
+</html>
+
+""".formatted(username, resetLink);
+    }
 }
