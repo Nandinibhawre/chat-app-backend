@@ -130,7 +130,7 @@ public class AuthService {
 
         // Frontend reset URL
         String resetLink =
-                "https://chat-app-frontend-fawn-three.vercel.app/reset-password?token=" + token;
+                "https://chat-app-frontend-fawn-three.vercel.app/api/auth/reset-password?token=" + token;
 
         // Send email
         emailService.sendForgotPasswordEmail(
