@@ -229,8 +229,26 @@ public class EmailService {
             String username,
             String resetLink
     ) {
-        String htmlContent = """
-        
+
+        try {
+
+            String url =
+                    "https://api.brevo.com/v3/smtp/email";
+
+            HttpHeaders headers =
+                    new HttpHeaders();
+
+            headers.setContentType(
+                    MediaType.APPLICATION_JSON
+            );
+
+            headers.set(
+                    "api-key",
+                    apiKey
+            );
+
+            String htmlContent = """
+
 <!DOCTYPE html>
 <html>
 
@@ -246,14 +264,13 @@ public class EmailService {
     background:white;
     border-radius:20px;
     overflow:hidden;
-    box-shadow:0 5px 20px rgba(0,0,0,0.1);
 ">
 
     <div style="
         background:#ff4d6d;
-        color:white;
         padding:35px;
         text-align:center;
+        color:white;
     ">
 
         <h1>
@@ -268,18 +285,8 @@ public class EmailService {
             Hello %s 👋
         </h2>
 
-        <p style="
-            color:#555;
-            line-height:1.8;
-        ">
-            We received a request to reset your password.
-        </p>
-
-        <p style="
-            color:#555;
-            line-height:1.8;
-        ">
-            Click the button below to create a new password.
+        <p>
+            Click below to reset your password.
         </p>
 
         <div style="
@@ -292,23 +299,14 @@ public class EmailService {
                     background:#ff4d6d;
                     color:white;
                     padding:15px 30px;
-                    text-decoration:none;
                     border-radius:50px;
-                    display:inline-block;
+                    text-decoration:none;
                     font-weight:bold;
                ">
                 Reset Password
             </a>
 
         </div>
-
-        <p style="
-            margin-top:40px;
-            color:#888;
-            font-size:14px;
-        ">
-            This link will expire in 15 minutes.
-        </p>
 
     </div>
 
@@ -318,5 +316,67 @@ public class EmailService {
 </html>
 
 """.formatted(username, resetLink);
+
+            Map<String, Object> body =
+                    new HashMap<>();
+
+            body.put(
+                    "sender",
+                    Map.of(
+                            "email", senderEmail,
+                            "name", senderName
+                    )
+            );
+
+            body.put(
+                    "to",
+                    List.of(
+                            Map.of(
+                                    "email", toEmail
+                            )
+                    )
+            );
+
+            body.put(
+                    "subject",
+                    "Reset Your Password 🔐"
+            );
+
+            body.put(
+                    "htmlContent",
+                    htmlContent
+            );
+
+            HttpEntity<Map<String, Object>>
+                    request =
+                    new HttpEntity<>(
+                            body,
+                            headers
+                    );
+
+            ResponseEntity<String> response =
+                    restTemplate.exchange(
+                            url,
+                            HttpMethod.POST,
+                            request,
+                            String.class
+                    );
+
+            System.out.println(
+                    "RESET EMAIL SENT"
+            );
+
+            System.out.println(
+                    response.getBody()
+            );
+
+        } catch (Exception e) {
+
+            System.out.println(
+                    "RESET EMAIL FAILED"
+            );
+
+            e.printStackTrace();
+        }
     }
-}
+   }
