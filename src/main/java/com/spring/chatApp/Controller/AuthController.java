@@ -43,4 +43,12 @@ public class AuthController {
     }
 
 
+    @PostMapping("/forgot-password")
+    public String forgotPassword(
+            @RequestParam String email
+    ) {
+
+        return authService
+                .forgotPassword(email);
+    }
 }
