@@ -26,5 +26,5 @@ public class User {
 
     private String resetToken;
 
-    private LocalDateTime resetTokenExpiry;
+    private LocalDateTime    resetTokenExpiry;
 }

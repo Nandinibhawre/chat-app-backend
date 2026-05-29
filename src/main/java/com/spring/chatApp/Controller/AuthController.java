@@ -2,6 +2,7 @@ package com.spring.chatApp.Controller;
 
 import com.spring.chatApp.Dto.LoginRequest;
 import com.spring.chatApp.Dto.RegisterRequest;
+import com.spring.chatApp.Dto.ResetPasswordRequest;
 import com.spring.chatApp.Model.Message;
 import com.spring.chatApp.Model.User;
 import com.spring.chatApp.Services.AuthService;
@@ -35,20 +36,26 @@ public class AuthController {
                 authService.login(request)
         );
     }
-
     @GetMapping("/users")
     public List<User> getAllUsers() {
 
         return authService.getAllUsers();
     }
-
-
     @PostMapping("/forgot-password")
     public String forgotPassword(
             @RequestParam String email
     ) {
-
         return authService
                 .forgotPassword(email);
+    }
+
+    @PostMapping("/reset-password")
+    public String resetPassword(
+            @RequestBody ResetPasswordRequest request
+    ) {
+        return authService.resetPassword(
+                request.getToken(),
+                request.getNewPassword()
+        );
     }
 }
