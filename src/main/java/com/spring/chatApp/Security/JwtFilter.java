@@ -58,8 +58,8 @@ public class JwtFilter extends OncePerRequestFilter {
 
         // SKIP AUTH APIs + WEBSOCKET
         if (
-                path.startsWith("/api/auth")
-                        ||
+                path.startsWith("/api/auth")||
+                        path.startsWith("/api/friends") ||
                         path.startsWith("/ws")
         ) {
 
