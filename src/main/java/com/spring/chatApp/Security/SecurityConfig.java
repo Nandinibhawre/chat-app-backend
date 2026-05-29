@@ -57,7 +57,7 @@ public class SecurityConfig {
                                 "/api/auth/**",
                                 "/ws/**",
                                 "/api/messages/**",
-                                "api/friends/**"
+                                "/api/friends/**"
                         ).permitAll()
 
                         .anyRequest().authenticated()
