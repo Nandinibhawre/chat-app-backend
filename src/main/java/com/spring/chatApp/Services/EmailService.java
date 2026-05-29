@@ -244,13 +244,10 @@ public class EmailService {
 
             headers.set(
                     "api-key",
-                    apiKey
+                    apiKey.trim()
             );
-            System.out.println("API KEY = " + apiKey);
 
-            System.out.println("SENDER EMAIL = " + senderEmail);
-
-            System.out.println("RESET LINK = " + resetLink);
+            // HTML TEMPLATE
 
             String htmlContent = """
 
@@ -260,7 +257,7 @@ public class EmailService {
 <body style="
     background:#f4f7fb;
     padding:40px;
-    font-family:Arial;
+    font-family:Arial,sans-serif;
 ">
 
 <div style="
@@ -291,7 +288,7 @@ public class EmailService {
         </h2>
 
         <p>
-            Click below to reset your password.
+            Click the button below to reset your password.
         </p>
 
         <div style="
@@ -322,26 +319,32 @@ public class EmailService {
 
 """.formatted(username, resetLink);
 
-            Map<String, Object> body =
+            // SENDER
+
+            Map<String, Object> sender =
                     new HashMap<>();
 
-            body.put(
-                    "sender",
-                    Map.of(
-                            "email", senderEmail,
-                            "name", senderName
-                    )
+            sender.put(
+                    "name",
+                    senderName
             );
 
-            Map<String, String> recipient =
+            sender.put(
+                    "email",
+                    senderEmail
+            );
+
+            // RECEIVER
+
+            Map<String, String> receiver =
                     new HashMap<>();
 
-            recipient.put(
+            receiver.put(
                     "email",
                     toEmail
             );
 
-            recipient.put(
+            receiver.put(
                     "name",
                     username
             );
@@ -349,7 +352,17 @@ public class EmailService {
             List<Map<String, String>> toList =
                     new ArrayList<>();
 
-            toList.add(recipient);
+            toList.add(receiver);
+
+            // REQUEST BODY
+
+            Map<String, Object> body =
+                    new HashMap<>();
+
+            body.put(
+                    "sender",
+                    sender
+            );
 
             body.put(
                     "to",
@@ -372,6 +385,22 @@ public class EmailService {
                             body,
                             headers
                     );
+
+            // DEBUG
+
+            System.out.println(
+                    "API KEY = " + apiKey
+            );
+
+            System.out.println(
+                    "SENDER = " + senderEmail
+            );
+
+            System.out.println(
+                    "RESET LINK = " + resetLink
+            );
+
+            // API CALL
 
             ResponseEntity<String> response =
                     restTemplate.exchange(
