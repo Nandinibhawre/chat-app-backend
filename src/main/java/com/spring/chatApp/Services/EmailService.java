@@ -246,6 +246,11 @@ public class EmailService {
                     "api-key",
                     apiKey
             );
+            System.out.println("API KEY = " + apiKey);
+
+            System.out.println("SENDER EMAIL = " + senderEmail);
+
+            System.out.println("RESET LINK = " + resetLink);
 
             String htmlContent = """
 
@@ -328,13 +333,27 @@ public class EmailService {
                     )
             );
 
+            Map<String, String> recipient =
+                    new HashMap<>();
+
+            recipient.put(
+                    "email",
+                    toEmail
+            );
+
+            recipient.put(
+                    "name",
+                    username
+            );
+
+            List<Map<String, String>> toList =
+                    new ArrayList<>();
+
+            toList.add(recipient);
+
             body.put(
                     "to",
-                    List.of(
-                            Map.of(
-                                    "email", toEmail
-                            )
-                    )
+                    toList
             );
 
             body.put(

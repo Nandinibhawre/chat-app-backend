@@ -109,6 +109,7 @@ public class AuthService {
     public List<User> getAllUsers() {
         return userRepository.findAll();
     }
+
     public String forgotPassword(String email) {
 
         User user = userRepository
@@ -138,7 +139,7 @@ public class AuthService {
                 user.getUsername(),
                 resetLink
         );
-
+    
         return "Password reset link sent to email";
     }
     public String resetPassword(
