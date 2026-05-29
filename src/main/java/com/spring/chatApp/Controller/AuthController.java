@@ -5,6 +5,7 @@ import com.spring.chatApp.Dto.RegisterRequest;
 import com.spring.chatApp.Dto.ResetPasswordRequest;
 import com.spring.chatApp.Model.Message;
 import com.spring.chatApp.Model.User;
+import com.spring.chatApp.Repository.UserRepository;
 import com.spring.chatApp.Services.AuthService;
 import com.spring.chatApp.Services.ChatService;
 import lombok.RequiredArgsConstructor;
@@ -20,7 +21,7 @@ import java.util.List;
 public class AuthController {
 
     private final AuthService authService;
-    private final ChatService chatService;
+    private final UserRepository userRepository;
     @PostMapping("/register")
     public String register(@RequestBody RegisterRequest request) {
 
@@ -57,5 +58,13 @@ public class AuthController {
                 request.getToken(),
                 request.getNewPassword()
         );
+    }
+
+
+    @GetMapping("/search")
+    public List<User> searchUsers(@RequestParam String query) {
+
+        return userRepository
+                .findByUsernameContainingIgnoreCase(query);
     }
 }
