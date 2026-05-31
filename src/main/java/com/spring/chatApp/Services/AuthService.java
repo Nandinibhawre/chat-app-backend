@@ -103,7 +103,8 @@ public class AuthService {
         return new LoginResponse(
                 token,
                 user.getEmail(),
-                user.getUsername()
+                user.getUsername(),
+                user.getId()
         );
     }
     public List<User> getAllUsers() {
