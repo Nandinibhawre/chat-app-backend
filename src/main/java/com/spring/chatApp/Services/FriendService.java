@@ -1,5 +1,6 @@
 package com.spring.chatApp.Services;
 
+import com.spring.chatApp.Dto.FriendRequestDTO;
 import com.spring.chatApp.Model.FriendRequest;
 import com.spring.chatApp.Model.FriendRequestStatus;
 import com.spring.chatApp.Model.User;
@@ -89,14 +90,33 @@ public class FriendService {
 
         return friends;
     }
-    public List<FriendRequest> getPendingRequests(
+    public List<FriendRequestDTO> getPendingRequests(
             String receiverId
     ) {
 
-        return friendRequestRepository
-                .findByReceiverIdAndStatus(
-                        receiverId,
-                        FriendRequestStatus.PENDING
-                );
+        List<FriendRequest> requests =
+                friendRequestRepository
+                        .findByReceiverIdAndStatus(
+                                receiverId,
+                                FriendRequestStatus.PENDING
+                        );
+
+        return requests.stream()
+                .map(request -> {
+
+                    User sender =
+                            userRepository
+                                    .findById(
+                                            request.getSenderId()
+                                    )
+                                    .orElse(null);
+
+                    return new FriendRequestDTO(
+                            request.getId(),
+                            request.getStatus().toString(),
+                            sender
+                    );
+                })
+                .toList();
     }
 }
