@@ -1,5 +1,6 @@
 package com.spring.chatApp.Controller;
 
+import com.spring.chatApp.Dto.FriendRequestDTO;
 import com.spring.chatApp.Model.FriendRequest;
 import com.spring.chatApp.Model.User;
 import com.spring.chatApp.Services.FriendService;
@@ -39,7 +40,7 @@ public class FriendController {
     }
 
     @GetMapping("/pending/{receiverId}")
-    public List<FriendRequest> getPendingRequests(
+    public List<FriendRequestDTO> getPendingRequests(
             @PathVariable String receiverId
     ) {
         return friendService.getPendingRequests(receiverId);
