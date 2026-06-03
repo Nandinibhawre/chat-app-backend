@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.List;
 
 @Controller
@@ -26,10 +27,12 @@ public class ChatController {
 
     @MessageMapping("/sendMessage")
     public void sendMessage(Message message) {
-        message.setTimestamp(
-                LocalDateTime.now()
-        );
 
+        message.setTimestamp(
+                LocalDateTime.now(
+                        ZoneId.of("Asia/Kolkata")
+                )
+        );
         // SAVE MESSAGE
         messageRepository.save(message);
 
