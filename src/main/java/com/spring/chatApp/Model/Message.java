@@ -22,5 +22,9 @@ public class Message {
 
     private String content;
 
+    private String fileUrl;
+
+    private String fileType;
+
     private LocalDateTime timestamp;
 }
