@@ -1,6 +1,7 @@
 package com.spring.chatApp.Controller;
 
 import com.spring.chatApp.Model.Message;
+import com.spring.chatApp.Model.TypingStatus;
 import com.spring.chatApp.Repository.MessageRepository;
 
 import com.spring.chatApp.Services.ChatService;
@@ -48,6 +49,21 @@ public class ChatController {
                 message.getSender(),
                 "/queue/messages",
                 message
+        );
+    }
+
+    @MessageMapping("/typing")
+    public void typing(
+            TypingStatus typingStatus
+    ) {
+
+        messagingTemplate.convertAndSendToUser(
+
+                typingStatus.getReceiver(),
+
+                "/queue/typing",
+
+                typingStatus
         );
     }
 
