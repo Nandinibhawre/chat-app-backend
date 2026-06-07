@@ -56,7 +56,10 @@ public class ChatController {
     public void typing(
             TypingStatus typingStatus
     ) {
-
+        System.out.println(
+                "Typing received from: "
+                        + typingStatus.getSender()
+        );
         messagingTemplate.convertAndSendToUser(
 
                 typingStatus.getReceiver(),
@@ -64,7 +67,11 @@ public class ChatController {
                 "/queue/typing",
 
                 typingStatus
+
+
         );
+
+
     }
 
 }
