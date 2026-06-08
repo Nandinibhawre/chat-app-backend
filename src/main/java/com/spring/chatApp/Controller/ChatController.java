@@ -56,7 +56,7 @@ public class ChatController {
     public void typing(
             TypingStatus typingStatus
     ) {
-        
+
         messagingTemplate.convertAndSendToUser(
 
                 typingStatus.getReceiver(),
