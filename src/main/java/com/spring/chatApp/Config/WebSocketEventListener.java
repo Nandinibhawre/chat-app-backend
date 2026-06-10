@@ -13,9 +13,8 @@ import org.springframework.web.socket.messaging.SessionDisconnectEvent;
 @RequiredArgsConstructor
 public class WebSocketEventListener {
 
-    private final OnlineUserService
-            onlineUserService;
 
+    private final OnlineUserService onlineUserService;
     @EventListener
     public void handleWebSocketConnect(
             SessionConnectEvent event
@@ -26,12 +25,21 @@ public class WebSocketEventListener {
                         event.getMessage()
                 );
 
+        System.out.println(
+                "HEADERS = "
+                        + accessor.toNativeHeaderMap()
+        );
+
         String email =
                 accessor.getFirstNativeHeader(
                         "userEmail"
                 );
 
-        if (email != null) {
+        System.out.println(
+                "EMAIL = " + email
+        );
+
+        if(email != null) {
 
             onlineUserService
                     .userOnline(email);
@@ -41,6 +49,8 @@ public class WebSocketEventListener {
             );
         }
     }
+
+
 
     @EventListener
     public void handleWebSocketDisconnect(

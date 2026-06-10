@@ -34,6 +34,10 @@ public class UserHandshakeHandler
             String email =
                     httpRequest.getParameter("email");
 
+            System.out.println(
+                    "HANDSHAKE EMAIL = " + email
+            );
+
             return () -> email;
         }
 
