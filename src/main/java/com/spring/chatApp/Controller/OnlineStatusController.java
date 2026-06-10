@@ -17,18 +17,7 @@ public class OnlineStatusController {
 
     private final OnlineUserService
             onlineUserService;
-//
-//    @GetMapping("/{email}")
-//    public boolean isOnline(
-//
-//            @PathVariable
-//            String email
-//    ) {
-//
-//        return onlineUserService
-//                .isOnline(email);
-//    }
-//}
+
 @GetMapping("/{email}")
 public UserStatusDTO getStatus(
 

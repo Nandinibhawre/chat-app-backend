@@ -4,6 +4,7 @@ package com.spring.chatApp.Services;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
@@ -50,7 +51,9 @@ private final Map<String, LocalDateTime> lastSeenMap =
 
         lastSeenMap.put(
                 email,
-                LocalDateTime.now()
+                LocalDateTime.now(
+                        ZoneId.of("Asia/Kolkata")
+                )
         );
     }
 
