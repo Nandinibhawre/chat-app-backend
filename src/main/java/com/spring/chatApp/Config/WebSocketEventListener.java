@@ -57,20 +57,30 @@ public class WebSocketEventListener {
             SessionDisconnectEvent event
     ) {
 
-        System.out.println("DISCONNECT EVENT");
-
         System.out.println(
-                "USER = " + event.getUser()
+                "DISCONNECT EVENT"
         );
 
-        StompHeaderAccessor accessor =
-                StompHeaderAccessor.wrap(
-                        event.getMessage()
-                );
+        Principal principal =
+                event.getUser();
 
         System.out.println(
-                "HEADERS = "
-                        + accessor.toNativeHeaderMap()
+                "PRINCIPAL = " + principal
         );
+
+        if(principal != null){
+
+            System.out.println(
+                    "EMAIL = " + principal.getName()
+            );
+
+            onlineUserService.userOffline(
+                    principal.getName()
+            );
+
+            System.out.println(
+                    principal.getName() + " is offline"
+            );
+        }
     }
     }
