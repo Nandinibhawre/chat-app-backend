@@ -41,14 +41,15 @@ public class WebSocketEventListener {
 
         if(email != null) {
 
-            onlineUserService
-                    .userOnline(email);
+            accessor.getSessionAttributes()
+                    .put("email", email);
 
-            System.out.println(
-                    email + " is online"
-            );
+            onlineUserService.userOnline(email);
+
+            System.out.println(email + " is online");
         }
-    }
+        }
+
 
 
 
