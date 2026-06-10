@@ -9,6 +9,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.socket.messaging.SessionConnectEvent;
 import org.springframework.web.socket.messaging.SessionDisconnectEvent;
 
+import java.security.Principal;
+
 @Component
 @RequiredArgsConstructor
 public class WebSocketEventListener {
@@ -47,35 +49,28 @@ public class WebSocketEventListener {
             onlineUserService.userOnline(email);
 
             System.out.println(email + " is online");
+
         }
-        }
-
-
-
-
+    }
     @EventListener
     public void handleWebSocketDisconnect(
             SessionDisconnectEvent event
     ) {
+
+        System.out.println("DISCONNECT EVENT");
+
+        System.out.println(
+                "USER = " + event.getUser()
+        );
 
         StompHeaderAccessor accessor =
                 StompHeaderAccessor.wrap(
                         event.getMessage()
                 );
 
-        String email =
-                accessor.getFirstNativeHeader(
-                        "userEmail"
-                );
-
-        if (email != null) {
-
-            onlineUserService
-                    .userOffline(email);
-
-            System.out.println(
-                    email + " is offline"
-            );
-        }
+        System.out.println(
+                "HEADERS = "
+                        + accessor.toNativeHeaderMap()
+        );
     }
-}
+    }
